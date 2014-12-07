@@ -15,19 +15,7 @@ class Game < Gosu::Window
     @state = :menu
     @summon_counter = 0
     @menu = Menu.new(self, 0, 0)
-
-
-    @lane1 = [ ]
-    @lane2 = [ ]
-    @lane3 = [ ]
-    @lane4 = [ ]
-    @lane5 = [ ]
-    @lane6 = [ ]
-    @lane7 = [ ]
-    @lane8 = [ ]
-    @lane9 = [ ]
-    @lane10 = [ ]
-    @lane11 = [ ]
+    @lanes = []
   end
 
   def draw
@@ -38,32 +26,14 @@ class Game < Gosu::Window
     if @state == :running
       @grid.draw
       @pig.draw
-      @lane1.each { |enemy| enemy.draw }
-      @lane2.each { |enemy| enemy.draw }
-      @lane3.each { |enemy| enemy.draw }
-      @lane4.each { |enemy| enemy.draw }
-      @lane5.each { |enemy| enemy.draw }
-      @lane6.each { |enemy| enemy.draw }
-      @lane7.each { |enemy| enemy.draw }
-      @lane8.each { |enemy| enemy.draw }
-      @lane9.each { |enemy| enemy.draw }
-      @lane10.each { |enemy| enemy.draw }
-      @lane11.each { |enemy| enemy.draw }
+      @lanes.each { |enemy| enemy.draw }
+
     end
   end
 
   def update
-    @lane1.each { |enemy| enemy.update }
-    @lane2.each { |enemy| enemy.update }
-    @lane3.each { |enemy| enemy.update }
-    @lane4.each { |enemy| enemy.update }
-    @lane5.each { |enemy| enemy.update }
-    @lane6.each { |enemy| enemy.update }
-    @lane7.each { |enemy| enemy.update }
-    @lane8.each { |enemy| enemy.update }
-    @lane9.each { |enemy| enemy.update }
-    @lane10.each { |enemy| enemy.update }
-    @lane11.each { |enemy| enemy.update }
+    @lanes.each { |enemy| enemy.update }
+
     @summon_counter += 1
     summon_farmers
 
@@ -79,7 +49,7 @@ class Game < Gosu::Window
   end
 
   def pig_collided?
-    [@lane1, @lane2, @lane3, @lane4, @lane5, @lane6, @lane7, @lane8, @lane9, @lane10, @lane11].each do |lane|
+    [@lanes].each do |lane|
       lane.each do |enemy|
        if enemy.bounds.intersects?(@pig.bounds)
          @state = :menu
@@ -90,42 +60,39 @@ class Game < Gosu::Window
   end
 
   def summon_farmers
-    if (@summon_counter % 180 == 0) || (@summon_counter % 60 == 0)
-      @lane2 << Enemy.new(self, 950, 700, -6)
-    elsif (@summon_counter % 120 == 0) || (@summon_counter % 80 == 0)
-      @lane3 << Enemy.new(self, 50, 650, 8)
-    elsif (@summon_counter % 110 == 0) || (@summon_counter % 75 == 0)
-      @lane4 << Enemy.new(self, 950, 600, -6)
-    elsif (@summon_counter % 90 == 0) || (@summon_counter % 60 == 0)
-      @lane1 << Enemy.new(self, 50, 750, 8)
+    if (@summon_counter % 180 == 0) || (@summon_counter % 60 == 0) || (@summon_counter % 40 == 0)
+      @lanes << Enemy.new(self, 1000, 700, -6)
+      @lanes << Enemy.new(self, 0, 650, 8)
+      @lanes << Enemy.new(self, 1000, 600, -6)
+      @lanes << Enemy.new(self, 0, 750, 8)
     end
 
     if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
-      @lane5 << Enemy.new(self, 50, 350, 10)
+      @lanes << Enemy.new(self, 0, 350, 10)
     end
 
     if (@summon_counter % 120 == 0) || (@summon_counter % 80 == 0)
-      @lane6 << Enemy.new(self, 950, 500, -7)
+      @lanes << Enemy.new(self, 1000, 500, -7)
     end
 
     if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
-      @lane7 << Enemy.new(self, 50, 450, 9)
+      @lanes << Enemy.new(self, 0, 450, 9)
     end
 
     if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
-      @lane8 << Enemy.new(self, 950, 300, -8)
+      @lanes << Enemy.new(self, 1000, 300, -8)
     end
 
     if (@summon_counter % 40 == 0) || (@summon_counter % 80 == 0)
-      @lane9 << Enemy.new(self, 950, 250, -12)
+      @lanes << Enemy.new(self, 1000, 250, -12)
     end
 
     if (@summon_counter % 60 == 0) || (@summon_counter % 30 == 0)
-      @lane10 << Enemy.new(self, 50, 200, 14)
+      @lanes << Enemy.new(self, 0, 200, 14)
     end
 
     if (@summon_counter % 30 == 0) || (@summon_counter % 80 == 0)
-      @lane11 << Enemy.new(self, 50, 400, 11)
+      @lanes << Enemy.new(self, 0, 400, 11)
     end
   end
 
@@ -133,11 +100,8 @@ class Game < Gosu::Window
     @pig = Pig.new(self, 500, 900)
     @state = :menu
     @summon_counter = 0
-
     @menu = Menu.new(self, 0, 0)
-
-    @lane1 = [ Enemy.new(self, 1000, 500, -5) ]
-    @lane2 = [ Enemy.new(self, 0, 450, 5)]
+    @lanes = [ Enemy.new(self, 1000, 500, -5) ]
   end
 
   def button_down(id)
