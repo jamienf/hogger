@@ -74,38 +74,39 @@ class Game < Gosu::Window
   end
 
   def summon_farmers
+
     if (@summon_counter % 180 == 0) || (@summon_counter % 60 == 0) || (@summon_counter % 40 == 0)
       @lanes << Enemy.new(self, 1000, 700, -6)
       @lanes << Enemy.new(self, 0, 650, 8)
       @lanes << Enemy.new(self, 1000, 600, -6)
       @lanes << Enemy.new(self, 0, 750, 8)
-    # end
+    end
 
-    # if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
+    if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
       @lanes << Enemy.new(self, 0, 350, 10)
-    # end
+    end
 
-    # if (@summon_counter % 120 == 0) || (@summon_counter % 80 == 0)
+    if (@summon_counter % 120 == 0) || (@summon_counter % 80 == 0)
       @lanes << Enemy.new(self, 1000, 500, -7)
-    # end
+    end
 
-    # if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
+    if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
       @lanes << Enemy.new(self, 0, 450, 9)
-    # end
+    end
 
-    # if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
+    if (@summon_counter % 60 == 0) || (@summon_counter % 120 == 0)
       @lanes << Enemy.new(self, 1000, 300, -8)
-    # end
+    end
 
-    # if (@summon_counter % 40 == 0) || (@summon_counter % 80 == 0)
+    if (@summon_counter % 40 == 0) || (@summon_counter % 80 == 0)
       @lanes << Enemy.new(self, 1000, 250, -12)
-    # end
+    end
 
-    # if (@summon_counter % 60 == 0) || (@summon_counter % 30 == 0)
+    if (@summon_counter % 60 == 0) || (@summon_counter % 30 == 0)
       @lanes << Enemy.new(self, 0, 200, 14)
-    # end
+    end
 
-    # if (@summon_counter % 30 == 0) || (@summon_counter % 80 == 0)
+    if (@summon_counter % 30 == 0) || (@summon_counter % 80 == 0)
       @lanes << Enemy.new(self, 0, 400, 11)
     end
   end
